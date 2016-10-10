@@ -14,6 +14,8 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
+export HISTFILE=~/.zsh_history
+
 setopt PROMPT_SUBST
 
 autoload -Uz vcs_info
