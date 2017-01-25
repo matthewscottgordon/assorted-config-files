@@ -42,6 +42,6 @@ colors
 function precmd() {
     vcs_info
     print -rP "
-%{%F{blue}%}%n%{%f%F{white}%}@%{%f%F{yellow}%}%m%{%f%F{white}%}:%{%f%F{cyan}%}$(pwd) ${vcs_info_msg_0_}"
+%{%F{blue}%}%n%{%f%F{white}%}@%{%f%F{yellow}%}%m%{%f%F{white}%}:%{%f%F{cyan}%}${PWD/$HOME/~} ${vcs_info_msg_0_}"
 }
 PROMPT='> '
