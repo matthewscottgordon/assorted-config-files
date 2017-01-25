@@ -16,6 +16,8 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
+alias docker='sudo docker'
+
 export HISTFILE=~/.zsh_history
 export HISTSIZE=10000
 export SAVEHIST=10000
