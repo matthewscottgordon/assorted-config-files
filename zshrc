@@ -1,3 +1,5 @@
+export PATH=~/.local/bin:$PATH
+
 export EDITOR=emacs
 
 if [[ $TERM == "dumb" ]]
