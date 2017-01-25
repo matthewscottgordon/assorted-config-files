@@ -22,6 +22,9 @@ export SAVEHIST=10000
 
 setopt PROMPT_SUBST
 
+autoload -U select-word-style
+select-word-style bash
+
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' unstagedstr ' unstaged'
