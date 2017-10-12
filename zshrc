@@ -2,6 +2,13 @@ export PATH=~/.local/bin:$PATH
 
 export EDITOR=emacs
 
+if [[ $(uname) == "Darwin" ]]; then
+    alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
+    export EDITOR="/Applications/Emacs.app/Contents/MacOS/Emacs"
+else
+    alias docker="sudo docker"
+fi
+
 if [[ $TERM == "dumb" ]]
 then
   unsetopt zle
@@ -16,7 +23,6 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 
-alias docker='sudo docker'
 
 export HISTFILE=~/.zsh_history
 export HISTSIZE=10000
