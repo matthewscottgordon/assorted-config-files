@@ -19,10 +19,12 @@ then
   export PS1='$ '
 fi
 
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
-source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
-
+VIRTUALENVWRAPPER_SCRIPT=/usr/share/virtualenvwrapper/virtualenvwrapper.sh
+if [[ -e ${VIRTUALENVWRAPPER_SCRIPT} ]]; then
+    export WORKON_HOME=$HOME/.virtualenvs
+    export PROJECT_HOME=$HOME/Devel
+    source ${VIRTUALENVWRAPPER_SCRIPT}
+fi
 
 export HISTFILE=~/.zsh_history
 export HISTSIZE=10000
