@@ -2,7 +2,15 @@ export PATH=~/.local/bin:$PATH
 
 export EDITOR=emacs
 
-if [[ $(uname) == "Darwin" ]]; then
+if [[ $(uname --kernel-release) =~ -Microsoft$ ]];
+then
+    export DISPLAY=127.0.0.1:0.0
+    export LIBGL_ALWAYS_REDIRECT=1
+    for batchFile in /mnt/c/Source/tools/scripts/developer_machine_utils/*.bat; do
+        filename=${batchFile##*/}
+        alias ${filename%.*}="cmd.exe /c ${batchFile/\/mnt\/c\/Source/M:}"
+    done
+elif [[ $(uname) == "Darwin" ]]; then
     alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
     export EDITOR="/Applications/Emacs.app/Contents/MacOS/Emacs"
 else
