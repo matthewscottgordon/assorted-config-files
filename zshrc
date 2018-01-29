@@ -4,6 +4,10 @@ export EDITOR=emacs
 
 if [[ $(uname --kernel-release) =~ -Microsoft$ ]];
 then
+    if [[ -z $(cmd.exe /c tasklist | grep vcxsrv.exe) ]];
+    then
+        /mnt/c/Program\ Files/VcXsrv/vcxsrv.exe -keyhook -multiwindow -wgl&!
+    fi
     export DISPLAY=127.0.0.1:0.0
     export LIBGL_ALWAYS_REDIRECT=1
     for batchFile in /mnt/c/Source/tools/scripts/developer_machine_utils/*.bat; do
