@@ -10,11 +10,17 @@ then
     fi
     export DISPLAY=127.0.0.1:0.0
     export LIBGL_ALWAYS_REDIRECT=1
-    for batchFile in /mnt/c/Source/tools/scripts/developer_machine_utils/*.bat; do
+    for batchFile in /mnt/m/tools/scripts/developer_machine_utils/*.bat; do
         filename=${batchFile##*/}
-        dosFullFilename=${batchFile/\/mnt\/c\/Source/M:}
-        alias ${filename%.*}="cmd.exe /c ${dosFullFilename}"
-        alias sudo${filename%.*}="powershell.exe -Command \"Start-Process cmd -ArgumentList \\\'/c \\\"${dosFullFilename} & pause\\\"\\\' -Verb RunAs\""
+        if [[ $batchFile =~ "^/mnt/([a-z])/" ]]
+        then
+            windowsDrive=$match[1]
+            windowsFullFilename=${batchFile/\/mnt\/${windowsDrive}/${windowsDrive}:}
+            alias ${filename%.*}="cmd.exe /c ${windowsFullFilename}"
+            alias sudo${filename%.*}="powershell.exe -Command \"Start-Process cmd -ArgumentList \\\'/c \\\"${windowsFullFilename} & pause\\\"\\\' -Verb RunAs\""
+        else
+            echo "Error: Batch file ${batchFile} is not visible outside WSL."
+        fi
     done
 elif [[ $(uname) == "Darwin" ]]; then
     alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
