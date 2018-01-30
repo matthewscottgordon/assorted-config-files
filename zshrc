@@ -12,7 +12,9 @@ then
     export LIBGL_ALWAYS_REDIRECT=1
     for batchFile in /mnt/c/Source/tools/scripts/developer_machine_utils/*.bat; do
         filename=${batchFile##*/}
-        alias ${filename%.*}="cmd.exe /c ${batchFile/\/mnt\/c\/Source/M:}"
+        dosFullFilename=${batchFile/\/mnt\/c\/Source/M:}
+        alias ${filename%.*}="cmd.exe /c ${dosFullFilename}"
+        alias sudo${filename%.*}="powershell.exe -Command \"Start-Process cmd -ArgumentList \\\'/c \\\"${dosFullFilename} & pause\\\"\\\' -Verb RunAs\""
     done
 elif [[ $(uname) == "Darwin" ]]; then
     alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
