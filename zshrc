@@ -13,18 +13,21 @@ then
     invoke_batch() {
         cmd.exe /c "$@"
     }
-    for batchFile in /mnt/m/tools/scripts/developer_machine_utils/*.bat; do
-        filename=${batchFile##*/}
-        if [[ $batchFile =~ "^/mnt/([a-z])/" ]]
-        then
-            windowsDrive=$match[1]
-            windowsFullFilename=${batchFile/\/mnt\/${windowsDrive}/${windowsDrive}:}
-            alias ${filename%.*}="invoke_batch ${windowsFullFilename}"
-            alias sudo${filename%.*}="powershell.exe -Command \"Start-Process cmd -ArgumentList \\\'/c \\\"${windowsFullFilename} & pause\\\"\\\' -Verb RunAs\""
-        else
-            echo "Error: Batch file ${batchFile} is not visible outside WSL."
-        fi
-    done
+    if [[ -d /mnt/m/tools ]]
+    then
+	for batchFile in /mnt/m/tools/scripts/developer_machine_utils/*.bat; do
+            filename=${batchFile##*/}
+            if [[ $batchFile =~ "^/mnt/([a-z])/" ]]
+            then
+		windowsDrive=$match[1]
+		windowsFullFilename=${batchFile/\/mnt\/${windowsDrive}/${windowsDrive}:}
+		alias ${filename%.*}="invoke_batch ${windowsFullFilename}"
+		alias sudo${filename%.*}="powershell.exe -Command \"Start-Process cmd -ArgumentList \\\'/c \\\"${windowsFullFilename} & pause\\\"\\\' -Verb RunAs\""
+            else
+		echo "Error: Batch file ${batchFile} is not visible outside WSL."
+            fi
+	done
+    fi
 elif [[ $(uname) == "Darwin" ]]; then
     alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
     export EDITOR="/Applications/Emacs.app/Contents/MacOS/Emacs"
