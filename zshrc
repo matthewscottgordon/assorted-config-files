@@ -2,13 +2,13 @@ export PATH=~/.local/bin:$PATH
 
 export EDITOR=emacs
 
-if [[ $(uname --kernel-release) =~ -Microsoft$ ]];
+if [[ $(uname --kernel-release) =~ [Mm]icrosoft ]];
 then
     if [[ -z $(cmd.exe /c tasklist | grep vcxsrv.exe) ]];
     then
-        /mnt/c/Program\ Files/VcXsrv/vcxsrv.exe -keyhook -multiwindow -wgl&!
+        /mnt/c/Program\ Files/VcXsrv/vcxsrv.exe -ac -keyhook -multiwindow -wgl&!
     fi
-    export DISPLAY=127.0.0.1:0.0
+    export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
     export LIBGL_ALWAYS_REDIRECT=1
 elif [[ $(uname) == "Darwin" ]]; then
     alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
