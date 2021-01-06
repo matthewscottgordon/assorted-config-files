@@ -4,12 +4,15 @@ export EDITOR=emacs
 
 if [[ $(uname --kernel-release) =~ [Mm]icrosoft ]];
 then
+    pushd > /dev/null # Change directory to non-WSL location, so that
+    cd /mnt/c         # cmd.exe doesn't print a warning about it.
     if [[ -z $(cmd.exe /c tasklist | grep vcxsrv.exe) ]];
     then
         /mnt/c/Program\ Files/VcXsrv/vcxsrv.exe -ac -keyhook -multiwindow -wgl&!
     fi
     export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0.0
     export LIBGL_ALWAYS_REDIRECT=1
+    popd > /dev/null
 elif [[ $(uname) == "Darwin" ]]; then
     alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
     export EDITOR="/Applications/Emacs.app/Contents/MacOS/Emacs"
